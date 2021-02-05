@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=starterkit_aws
+POSTGRES_USER=EaqTBnyvjCYcmHsjmikohyPbKpPDMuoJ
+POSTGRES_PASSWORD=HqPBHd10RRTNl6p6y2izdLyKGaC1v0kgwdV8WKTjBp8jetGeyD933GTl3gbQdQGY
