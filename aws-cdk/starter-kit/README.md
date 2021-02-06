@@ -1,8 +1,7 @@
-# Welcome to your CDK TypeScript project!
+# CDK code for a Django app in Fargate
 
-This is a blank project for TypeScript development with CDK.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+Deploys all AWS components needed for a containerized Django app running in
+Fargate.
 
 ## Useful commands
 
