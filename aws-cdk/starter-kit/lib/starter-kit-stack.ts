@@ -41,7 +41,7 @@ export class StarterKitStack extends cdk.Stack {
 
     // Create S3 bucket for static/media storage
     const bucket = new s3.Bucket(this, "StarterKitBucket", {
-      bucketName: `${process.env.AWS_STORAGE_BUCKET_NAME}`,
+      bucketName: `${process.env.DJANGO_AWS_STORAGE_BUCKET_NAME}`,
       publicReadAccess: true,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
