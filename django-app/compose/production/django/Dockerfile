@@ -1,6 +1,8 @@
 
 FROM python:3.8-slim-buster
 
+WORKDIR /app
+
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
@@ -18,6 +20,7 @@ RUN addgroup --system django \
     && adduser --system --ingroup django django
 
 # Requirements are installed here to ensure they will be cached.
+RUN pip install --upgrade pip
 COPY ./requirements /requirements
 RUN pip install --no-cache-dir -r /requirements/production.txt \
     && rm -rf /requirements
@@ -26,14 +29,15 @@ COPY --chown=django:django ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
 
+COPY . /app
 
-COPY --chown=django:django ./compose/production/django/start /start
-RUN sed -i 's/\r$//g' /start
-RUN chmod +x /start
-COPY --chown=django:django . /app
+RUN chown -R django /app
 
 USER django
 
-WORKDIR /app
+# collect static files
+RUN python manage.py collectstatic --no-input
+RUN python manage.py migrate
+RUN /usr/local/bin/gunicorn config.wsgi --bind 0.0.0.0:8000 --chdir=/app  --access-logfile '-' --error-logfile '-' --capture-output
 
-ENTRYPOINT ["/entrypoint"]
+#ENTRYPOINT ["/entrypoint"]

@@ -70,7 +70,7 @@ export class StarterKitStack extends cdk.Stack {
       cpu: 512, // Default is 256
       desiredCount: 1, // Default is 1
       taskImageOptions: {
-        image: ecs.ContainerImage.fromRegistry("eandrewswhoi/django-aws-starterkit"),
+        image: ecs.ContainerImage.fromRegistry("eandrewswhoi/django-aws-starterkit:v0.4"),
         containerPort: 8000,
         environment: {
           'POSTGRES_HOST': db.dbInstanceEndpointAddress,
