@@ -1,4 +1,7 @@
-#!/usr/bin/env node
+require("dotenv-safe").config({
+  allowEmptyValues: true
+});
+
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { StarterKitStack } from '../lib/starter-kit-stack';
