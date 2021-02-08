@@ -1,5 +1,5 @@
 
-FROM python:3.8-slim-buster
+FROM --platform=linux/amd64 python:3.8-slim-buster
 
 WORKDIR /app
 
@@ -35,9 +35,4 @@ RUN chown -R django /app
 
 USER django
 
-# collect static files
-RUN python manage.py collectstatic --no-input
-RUN python manage.py migrate
-RUN /usr/local/bin/gunicorn config.wsgi --bind 0.0.0.0:8000 --chdir=/app  --access-logfile '-' --error-logfile '-' --capture-output
-
-#ENTRYPOINT ["/entrypoint"]
+ENTRYPOINT ["/entrypoint"]
