@@ -82,7 +82,7 @@ Deployment
 Build a Docker image using the ``compose/production/django/Dockerfile`` and
 push this image to your image repo. Then use that image with AWS ECS container.
 
-Full code to deploy this app in AWS using CDK is available in the ``aws-cd`` directory in this repo.
+Full code to deploy this app in AWS using CDK is available in the ``aws-cdk`` directory in this repo.
 
 
 Docker
