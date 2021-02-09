@@ -33,6 +33,9 @@ CACHES = {
 
 # SECURITY
 # ------------------------------------------------------------------------------
+# THESE ARE SET TO FALSE FOR USE WITH AWS ECS container with no domain
+# THEY SHOULD BE SET TO TRUE FOR USE WITH PRODUCTION DOMAIN
+#
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-proxy-ssl-header
 # SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-ssl-redirect
