@@ -21,6 +21,13 @@ Moved to settings_.
 
 .. _settings: http://cookiecutter-django.readthedocs.io/en/latest/settings.html
 
+Running Locally
+---------------
+
+Use Docker_.
+
+.. _Docker: https://cookiecutter-django.readthedocs.io/en/latest/developing-locally-docker.html
+
 Basic Commands
 --------------
 
@@ -69,21 +76,20 @@ Moved to `Live reloading and SASS compilation`_.
 
 
 
-
-
 Deployment
 ----------
 
-The following details how to deploy this application.
+Build a Docker image using the ``compose/production/django/Dockerfile`` and
+push this image to your image repo. Then use that image with AWS ECS container.
 
+Full code to deploy this app in AWS using CDK is available in the ``aws-cd`` directory in this repo.
 
 
 Docker
 ^^^^^^
 
+You can also deploy this app using docker compose instead of ECS.
+
 See detailed `cookiecutter-django Docker documentation`_.
 
 .. _`cookiecutter-django Docker documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html
-
-
-
