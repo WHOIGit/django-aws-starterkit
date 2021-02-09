@@ -14,6 +14,8 @@ const postgresPassword = new cdk.SecretValue(process.env.POSTGRES_PASSWORD);
 // Then create a "Credentials" object
 const dbCredentials = rds.Credentials.fromPassword(postgresUser, postgresPassword);
 
+const allowedHostsList = process.env.DJANGO_ALLOWED_HOSTS as string;
+
 export class StarterKitStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -70,7 +72,7 @@ export class StarterKitStack extends cdk.Stack {
       cpu: 512, // Default is 256
       desiredCount: 1, // Default is 1
       taskImageOptions: {
-        image: ecs.ContainerImage.fromRegistry("eandrewswhoi/django-aws-starterkit:v0.5"),
+        image: ecs.ContainerImage.fromRegistry("eandrewswhoi/django-aws-starterkit:v0.8"),
         containerPort: 8000,
         environment: {
           'POSTGRES_HOST': db.dbInstanceEndpointAddress,
@@ -81,7 +83,7 @@ export class StarterKitStack extends cdk.Stack {
           'DJANGO_SETTINGS_MODULE': `${process.env.DJANGO_SETTINGS_MODULE}`,
           'DJANGO_SECRET_KEY': `${process.env.DJANGO_SECRET_KEY}`,
           'DJANGO_ADMIN_URL': `${process.env.DJANGO_ADMIN_URL}`,
-          'DJANGO_ALLOWED_HOSTS': `${process.env.DJANGO_ALLOWED_HOSTS}`,
+          'DJANGO_ALLOWED_HOSTS': process.env.DJANGO_ALLOWED_HOSTS as string,
           'DJANGO_AWS_ACCESS_KEY_ID': `${process.env.DJANGO_AWS_ACCESS_KEY_ID}`,
           'DJANGO_AWS_SECRET_ACCESS_KEY': `${process.env.DJANGO_AWS_SECRET_ACCESS_KEY}`,
           'DJANGO_AWS_STORAGE_BUCKET_NAME': bucket.bucketName,
