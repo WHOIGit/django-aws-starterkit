@@ -1,7 +1,8 @@
 Starterkit AWS
 ==============
 
-Base Django project to deploy with AWS
+Base Django project to deploy with AWS. This is a modified version of the Django Cookie Cutter app template so that
+the production version is configured to be deployed as a container in AWS ECS.
 
 .. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter
      :target: https://github.com/pydanny/cookiecutter-django/

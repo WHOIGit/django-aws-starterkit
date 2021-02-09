@@ -17,7 +17,7 @@ Just change the `taskImageOptions.image` property in the `ApplicationLoadBalance
 to use a different Django image,  but you will need to adjust the environmental variables to fit your
 needs.
 
-Both the AWS CLI and CDK packages need to be installed on your local machine.
+Both AWS CLI and CDK need to be installed on your local machine.
 
 For detailed instructions on getting started with AWS CDK:
 [https://docs.aws.amazon.com/cdk/latest/guide/home.html](https://docs.aws.amazon.com/cdk/latest/guide/home.html)
