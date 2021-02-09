@@ -14,7 +14,7 @@ const postgresPassword = new cdk.SecretValue(process.env.POSTGRES_PASSWORD);
 // Then create a "Credentials" object
 const dbCredentials = rds.Credentials.fromPassword(postgresUser, postgresPassword);
 
-const allowedHostsList = process.env.DJANGO_ALLOWED_HOSTS as string;
+console.log(postgresUser);
 
 export class StarterKitStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -43,7 +43,7 @@ export class StarterKitStack extends cdk.Stack {
 
     // Create S3 bucket for static/media storage
     const bucket = new s3.Bucket(this, "StarterKitBucket", {
-      bucketName: `${process.env.DJANGO_AWS_STORAGE_BUCKET_NAME}`,
+      bucketName: process.env.DJANGO_AWS_STORAGE_BUCKET_NAME as string,
       publicReadAccess: true,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
@@ -72,7 +72,7 @@ export class StarterKitStack extends cdk.Stack {
       cpu: 512, // Default is 256
       desiredCount: 1, // Default is 1
       taskImageOptions: {
-        image: ecs.ContainerImage.fromRegistry("eandrewswhoi/django-aws-starterkit:v0.8"),
+        image: ecs.ContainerImage.fromRegistry("eandrewswhoi/django-aws-starterkit:latest"),
         containerPort: 8000,
         environment: {
           'POSTGRES_HOST': db.dbInstanceEndpointAddress,
@@ -80,14 +80,14 @@ export class StarterKitStack extends cdk.Stack {
           'POSTGRES_DB': process.env.POSTGRES_DB as string,
           'POSTGRES_USER': process.env.POSTGRES_USER as string,
           'POSTGRES_PASSWORD': process.env.POSTGRES_PASSWORD as string,
-          'DJANGO_SETTINGS_MODULE': `${process.env.DJANGO_SETTINGS_MODULE}`,
-          'DJANGO_SECRET_KEY': `${process.env.DJANGO_SECRET_KEY}`,
-          'DJANGO_ADMIN_URL': `${process.env.DJANGO_ADMIN_URL}`,
+          'DJANGO_SETTINGS_MODULE': process.env.DJANGO_SETTINGS_MODULE as string,
+          'DJANGO_SECRET_KEY': process.env.DJANGO_SECRET_KEY as string,
+          'DJANGO_ADMIN_URL': process.env.DJANGO_ADMIN_URL as string,
           'DJANGO_ALLOWED_HOSTS': process.env.DJANGO_ALLOWED_HOSTS as string,
-          'DJANGO_AWS_ACCESS_KEY_ID': `${process.env.DJANGO_AWS_ACCESS_KEY_ID}`,
-          'DJANGO_AWS_SECRET_ACCESS_KEY': `${process.env.DJANGO_AWS_SECRET_ACCESS_KEY}`,
+          'DJANGO_AWS_ACCESS_KEY_ID': process.env.DJANGO_AWS_ACCESS_KEY_ID as string,
+          'DJANGO_AWS_SECRET_ACCESS_KEY': process.env.DJANGO_AWS_SECRET_ACCESS_KEY as string,
           'DJANGO_AWS_STORAGE_BUCKET_NAME': bucket.bucketName,
-          'REDIS_URL': `${process.env.REDIS_URL}`
+          'REDIS_URL': process.env.REDIS_URL as string
         }
       },
       memoryLimitMiB: 2048, // Default is 512

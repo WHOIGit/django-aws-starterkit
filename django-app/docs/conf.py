@@ -27,7 +27,7 @@ django.setup()
 # -- Project information -----------------------------------------------------
 
 project = "Starterkit AWS"
-copyright = """2021, Ethan Andrews"""
+copyright = """2021, WHOI"""
 author = "Ethan Andrews"
 
 
