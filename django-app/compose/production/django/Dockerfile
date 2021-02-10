@@ -31,8 +31,6 @@ RUN chmod +x /entrypoint
 
 COPY . /app
 
-RUN mkdir /app/staticfiles && mkdir /app/media
-
 RUN chown -R django /app
 
 USER django
