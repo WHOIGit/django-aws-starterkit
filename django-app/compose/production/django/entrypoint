@@ -21,7 +21,7 @@ import sys
 import psycopg2
 
 try:
-    psycopg2.connect(
+    conn = psycopg2.connect(
         dbname="${POSTGRES_DB}",
         user="${POSTGRES_USER}",
         password="${POSTGRES_PASSWORD}",
@@ -35,11 +35,43 @@ sys.exit(0)
 END
 }
 
+enable_postgis() {
+python << END
+import sys
+
+import psycopg2
+
+try:
+    conn = psycopg2.connect(
+        dbname="${POSTGRES_DB}",
+        user="${POSTGRES_USER}",
+        password="${POSTGRES_PASSWORD}",
+        host="${POSTGRES_HOST}",
+        port="${POSTGRES_PORT}",
+    )
+    cur = conn.cursor()
+    cur.execute("CREATE EXTENSION IF NOT EXISTS postgis;")
+    conn.commit()
+    cur.close()
+    conn.close()
+except Exception as err:
+    print(err)
+    sys.exit(0)
+sys.exit(0)
+
+END
+}
+
 until postgres_ready; do
   >&2 echo 'Waiting for PostgreSQL to become available...'
   sleep 1
 done
->&2 echo 'PostgreSQL is available. Super!'
+>&2 echo 'PostgreSQL is available. Super! Enable PostGis...'
+
+until enable_postgis; do
+  >&2 echo 'Waiting for PostGIS...'
+  sleep 1
+done
 
 python /app/manage.py collectstatic --noinput
 python /app/manage.py migrate
